@@ -1,0 +1,36 @@
+<div class="dragonball">
+  <header class="dragonball-header">
+    <div class="header-content">
+      <h1 class="dragonball-title">
+        <svg viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
+        </svg>
+        Dragon Ball
+      </h1>
+      <p class="dragonball-subtitle">{{ totalCount() }} characters</p>
+    </div>
+  </header>
+
+  <div class="dragonball-toolbar">
+    <app-character-search
+      [placeholder]="'Search by name, race, or affiliation...'"
+      (searchChange)="onSearchChange($event)"
+      (clearSearch)="onClearSearch()"
+    ></app-character-search>
+
+    <app-character-filters
+      [availableRaces]="availableRaces()"
+      [availableGenders]="availableGenders()"
+      [availableAffiliations]="availableAffiliations()"
+      (racesChange)="onRacesChange($event)"
+      (gendersChange)="onGendersChange($event)"
+      (affiliationsChange)="onAffiliationsChange($event)"
+    ></app-character-filters>
+  </div>
+
+  <app-character-list
+    [characters]="filteredCharacters()"
+    [loading]="loading()"
+    [error]="error()"
+  ></app-character-list>
+</div>

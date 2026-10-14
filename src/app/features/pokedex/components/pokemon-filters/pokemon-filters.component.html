@@ -1,0 +1,46 @@
+<div class="filters-container">
+  <button 
+    class="filter-toggle-btn" 
+    (click)="onToggleFilters()"
+    [class.active]="showFilters()"
+    aria-expanded="showFilters()"
+    aria-controls="filters-panel"
+  >
+    <svg class="filter-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+    </svg>
+    <span>Filters</span>
+    @if (hasActiveFilters()) {
+      <span class="filter-badge">{{ activeCount() }}</span>
+    }
+  </button>
+
+  <div 
+    id="filters-panel" 
+    class="filters-panel" 
+    [class.open]="showFilters()"
+    [@slideDown]
+  >
+    <div class="filters-header">
+      <h3>Filter by Type</h3>
+      @if (hasActiveFilters()) {
+        <button class="clear-all" (click)="onClearAll()">Clear all</button>
+      }
+    </div>
+    
+    <div class="types-grid">
+      @for (type of availableTypes(); track type) {
+        <label class="type-filter" [class.selected]="isSelected(type)">
+          <input
+            type="checkbox"
+            [value]="type"
+            [checked]="isSelected(type)"
+            (change)="onTypeChange(type, $event)"
+            [id]="'type-' + type"
+          >
+          <span class="type-label" [class]="'type-' + type">{{ type | titlecase }}</span>
+        </label>
+      }
+    </div>
+  </div>
+</div>

@@ -1,0 +1,96 @@
+<div class="filters-container">
+  <button 
+    class="filter-toggle-btn" 
+    (click)="onToggleFilters()"
+    [class.active]="showFilters()"
+    aria-expanded="showFilters()"
+    aria-controls="filters-panel"
+  >
+    <svg class="filter-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <polygon points="22 3 2 3 10 12.46 10 19 14 21 14 12.46 22 3"></polygon>
+    </svg>
+    <span>Filters</span>
+    @if (hasActiveFilters()) {
+      <span class="filter-badge">{{ activeCount() }}</span>
+    }
+  </button>
+
+  <div 
+    id="filters-panel" 
+    class="filters-panel" 
+    [class.open]="showFilters()"
+    [@slideDown]
+  >
+    <div class="filters-header">
+      <h3>Filters</h3>
+      @if (hasActiveFilters()) {
+        <button class="clear-all" (click)="onClearAll()">Clear all</button>
+      }
+    </div>
+    
+    <div class="filters-content">
+      <!-- Race Filter -->
+      <div class="filter-section">
+        <h4>Race</h4>
+        <div class="filter-options">
+          @for (race of availableRaces(); track race) {
+            <label class="filter-option" [class.selected]="isRaceSelected(race)">
+              <input
+                type="checkbox"
+                [value]="race"
+                [checked]="isRaceSelected(race)"
+                (change)="onRaceChange(race, $event)"
+                [id]="'race-' + race"
+              >
+              <span class="filter-label race-badge" [class]="'race-' + race.toLowerCase().replace(/\s+/g, '-')">
+                {{ race }}
+              </span>
+            </label>
+          }
+        </div>
+      </div>
+
+      <!-- Gender Filter -->
+      <div class="filter-section">
+        <h4>Gender</h4>
+        <div class="filter-options">
+          @for (gender of availableGenders(); track gender) {
+            <label class="filter-option" [class.selected]="isGenderSelected(gender)">
+              <input
+                type="checkbox"
+                [value]="gender"
+                [checked]="isGenderSelected(gender)"
+                (change)="onGenderChange(gender, $event)"
+                [id]="'gender-' + gender"
+              >
+              <span class="filter-label gender-badge" [class]="'gender-' + gender.toLowerCase()">
+                {{ gender }}
+              </span>
+            </label>
+          }
+        </div>
+      </div>
+
+      <!-- Affiliation Filter -->
+      <div class="filter-section">
+        <h4>Affiliation</h4>
+        <div class="filter-options">
+          @for (affiliation of availableAffiliations(); track affiliation) {
+            <label class="filter-option" [class.selected]="isAffiliationSelected(affiliation)">
+              <input
+                type="checkbox"
+                [value]="affiliation"
+                [checked]="isAffiliationSelected(affiliation)"
+                (change)="onAffiliationChange(affiliation, $event)"
+                [id]="'affiliation-' + affiliation"
+              >
+              <span class="filter-label affiliation-badge" [class]="'affiliation-' + affiliation.toLowerCase().replace(/\s+/g, '-')">
+                {{ affiliation }}
+              </span>
+            </label>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

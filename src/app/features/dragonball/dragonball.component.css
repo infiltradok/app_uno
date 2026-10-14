@@ -1,0 +1,99 @@
+.dragonball {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #FFF8E1 0%, #FFECB3 100%);
+  padding-bottom: 40px;
+}
+
+.dragonball-header {
+  padding: 32px 24px 16px;
+  text-align: center;
+  background: linear-gradient(135deg, #FF6B35 0%, #F7931E 100%);
+  color: white;
+  box-shadow: 0 4px 20px rgba(255, 107, 53, 0.3);
+}
+
+.header-content {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.dragonball-title {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 0 8px;
+  font-size: 2.5rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.dragonball-title svg {
+  width: 48px;
+  height: 48px;
+}
+
+.dragonball-subtitle {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 400;
+  opacity: 0.9;
+}
+
+.dragonball-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 24px;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.dragonball-toolbar app-character-search {
+  flex: 1;
+  min-width: 280px;
+}
+
+.dragonball-toolbar app-character-filters {
+  flex-shrink: 0;
+}
+
+@media (max-width: 768px) {
+  .dragonball-header {
+    padding: 24px 16px 12px;
+  }
+  
+  .dragonball-title {
+    font-size: 2rem;
+  }
+  
+  .dragonball-title svg {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .dragonball-toolbar {
+    padding: 16px;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  
+  .dragonball-toolbar app-character-search {
+    min-width: 0;
+    width: 100%;
+  }
+  
+  .dragonball-toolbar app-character-filters {
+    width: 100%;
+  }
+  
+  .dragonball-toolbar app-character-filters .filter-toggle-btn {
+    width: 100%;
+    justify-content: center;
+  }
+}

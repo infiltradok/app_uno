@@ -1,0 +1,134 @@
+<div class="floating-menu-container" (click)="onContainerClick()">
+  <!-- Background decorative elements -->
+  <div class="bg-decoration" [style.width.px]="viewportWidth()" [style.height.px]="viewportHeight()">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+  </div>
+
+  <!-- Floating Windows -->
+  @for (window of windows(); track window.id; let i = $index) {
+    <div 
+      class="floating-window"
+      [style.z-index]="window.zIndex"
+      [style.transform]="'translate(' + window.position.x + 'px, ' + window.position.y + 'px)'"
+      [style.--window-color]="window.color"
+      [style.--window-gradient]="window.gradient"
+      (mousedown)="onMouseDown(window.id, $event)"
+      (touchstart)="onTouchStart(window.id, $event)"
+      (click)="onWindowClick(window.id)"
+      (keydown)="onKeyDown(window.id, $event)"
+      tabindex="0"
+      role="button"
+      [attr.aria-label]="'Open ' + window.title"
+      [attr.data-dragging]="isDragging && draggedWindowId === window.id"
+    >
+      <!-- Window Header -->
+      <div class="window-header">
+        <div class="window-icon" [class]="'icon-' + window.icon">
+          @if (window.icon === 'pokeball') {
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="2" y1="12" x2="22" y2="12"></line>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+            </svg>
+          } @else if (window.icon === 'dragonball') {
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <circle cx="12" cy="12" r="10"></circle>
+              <circle cx="12" cy="12" r="6"></circle>
+              <circle cx="12" cy="12" r="2"></circle>
+            </svg>
+          } @else if (window.icon === 'simpsons') {
+            <svg viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8z"/>
+            </svg>
+          }
+        </div>
+        <div class="window-title">
+          <h3>{{ window.title }}</h3>
+          <span class="window-subtitle">{{ window.subtitle }}</span>
+        </div>
+        <div class="window-controls">
+          <button class="control-btn" (click)="$event.stopPropagation(); shuffleWindows()" title="Shuffle">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="17 1 21 5 17 9"></polyline>
+              <path d="M3 11V9a4 4 0 0 1 4-4h14"></path>
+              <polyline points="7 23 3 19 7 15"></polyline>
+              <path d="M21 13v2a4 4 0 0 1-4 4H3"></path>
+            </svg>
+          </button>
+          <button class="control-btn" (click)="$event.stopPropagation(); resetPositions()" title="Reset positions">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="1 4 1 10 7 10"></polyline>
+              <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- Window Content -->
+      <div class="window-content">
+        <div class="window-stats">
+          @for (stat of window.stats; track stat.label) {
+            <div class="stat-item">
+              <span class="stat-value">{{ stat.value }}</span>
+              <span class="stat-label">{{ stat.label }}</span>
+            </div>
+          }
+        </div>
+
+        <div class="window-description">
+          @if (window.id === 'pokedex') {
+            <p>Explore 1000+ Pokémon with search, type filters, and detailed stats. Data from PokeAPI.</p>
+          } @else if (window.id === 'dragonball') {
+            <p>Discover 58 Dragon Ball characters with race, gender, and affiliation filters. Power levels included!</p>
+          } @else if (window.id === 'simpsons') {
+            <p>Meet 1,182+ Simpsons characters from Springfield. Search by name or occupation with status filters.</p>
+          }
+        </div>
+
+        <div class="window-actions">
+          <a [routerLink]="window.route" class="btn-primary" (click)="$event.stopPropagation()">
+            <span>Explore</span>
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+        </div>
+      </div>
+
+      <!-- Drag handle indicator -->
+      <div class="drag-handle" [attr.aria-hidden]="true">
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+    </div>
+  }
+
+  <!-- Control Panel -->
+  <div class="control-panel">
+    <button class="panel-btn" (click)="shuffleWindows()" title="Shuffle all windows">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="17 1 21 5 17 9"></polyline>
+        <path d="M3 11V9a4 4 0 0 1 4-4h14"></path>
+        <polyline points="7 23 3 19 7 15"></polyline>
+        <path d="M21 13v2a4 4 0 0 1-4 4H3"></path>
+      </svg>
+      <span>Shuffle</span>
+    </button>
+    <button class="panel-btn" (click)="resetPositions()" title="Reset positions">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <polyline points="1 4 1 10 7 10"></polyline>
+        <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path>
+      </svg>
+      <span>Reset</span>
+    </button>
+  </div>
+
+  <!-- Instructions -->
+  <div class="instructions">
+    <kbd>Drag</kbd> to move windows <kbd>Click</kbd> to explore
+  </div>
+</div>

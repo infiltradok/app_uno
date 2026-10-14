@@ -1,0 +1,192 @@
+.filters-container {
+  position: relative;
+}
+
+.filter-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  font-size: 0.9rem;
+  font-weight: 500;
+  color: #495057;
+  background: #fff;
+  border: 2px solid #e9ecef;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.filter-toggle-btn:hover {
+  border-color: #dee2e6;
+  background: #f8f9fa;
+}
+
+.filter-toggle-btn.active {
+  border-color: #6890F0;
+  background: #f0f4ff;
+  color: #6890F0;
+}
+
+.filter-icon {
+  width: 18px;
+  height: 18px;
+}
+
+.filter-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 6px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: white;
+  background: #6890F0;
+  border-radius: 10px;
+}
+
+.filters-panel {
+  position: absolute;
+  top: calc(100% + 8px);
+  right: 0;
+  width: 280px;
+  max-height: 0;
+  overflow: hidden;
+  background: white;
+  border: 1px solid #e9ecef;
+  border-radius: 12px;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  z-index: 100;
+}
+
+.filters-panel.open {
+  max-height: 400px;
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.filters-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px;
+  border-bottom: 1px solid #e9ecef;
+}
+
+.filters-header h3 {
+  margin: 0;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: #212529;
+}
+
+.clear-all {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: #6890F0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px 8px;
+  border-radius: 6px;
+  transition: background 0.2s ease;
+}
+
+.clear-all:hover {
+  background: #f0f4ff;
+}
+
+.types-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 6px;
+  padding: 12px 16px;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.type-filter {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 10px;
+  border-radius: 8px;
+  background: #f8f9fa;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.type-filter:hover {
+  background: #e9ecef;
+}
+
+.type-filter.selected {
+  background: #f0f4ff;
+  border-color: #6890F0;
+}
+
+.type-filter input {
+  display: none;
+}
+
+.type-label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 28px;
+  height: 24px;
+  padding: 0 8px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: white;
+  border-radius: 12px;
+  text-transform: capitalize;
+  white-space: nowrap;
+}
+
+/* Type colors matching pokemon-card */
+.type-normal { background: #A8A878; }
+.type-fire { background: #F08030; }
+.type-water { background: #6890F0; }
+.type-electric { background: #F8D030; color: #212529; }
+.type-grass { background: #78C850; }
+.type-ice { background: #98D8D8; color: #212529; }
+.type-fighting { background: #C03028; }
+.type-poison { background: #A040A0; }
+.type-ground { background: #E0C068; color: #212529; }
+.type-flying { background: #A890F0; }
+.type-psychic { background: #F85888; }
+.type-bug { background: #A8B820; }
+.type-rock { background: #B8A038; color: #212529; }
+.type-ghost { background: #705898; }
+.type-dragon { background: #7038F8; }
+.type-dark { background: #705848; }
+.type-steel { background: #B8B8D0; color: #212529; }
+.type-fairy { background: #EE99AC; color: #212529; }
+
+/* Scrollbar */
+.types-grid::-webkit-scrollbar {
+  width: 5px;
+}
+.types-grid::-webkit-scrollbar-track {
+  background: transparent;
+}
+.types-grid::-webkit-scrollbar-thumb {
+  background: #ced4da;
+  border-radius: 3px;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .filters-panel {
+    right: -40px;
+    width: 320px;
+  }
+}

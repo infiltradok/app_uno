@@ -1,0 +1,64 @@
+<div class="pokemon-card" [class.flipped]="isFlipped()" (click)="toggleFlip()">
+  <div class="card-inner">
+    <!-- Front: Sprite + Basic Info -->
+    <div class="card-front">
+      <div class="card-header">
+        <span class="pokemon-id">{{ formattedId() }}</span>
+        <span class="pokemon-name">{{ pokemon().name | titlecase }}</span>
+      </div>
+      <div class="sprite-container">
+        <img [src]="sprite()" [alt]="pokemon().name" class="pokemon-sprite" loading="lazy">
+      </div>
+      <div class="types">
+        @for (type of pokemon().types; track type.slot) {
+          <span class="type-badge" [class]="type.type.name">{{ type.type.name | titlecase }}</span>
+        }
+      </div>
+      <div class="flip-hint">Click for details</div>
+    </div>
+
+    <!-- Back: Stats + Details -->
+    <div class="card-back">
+      <div class="card-header">
+        <span class="pokemon-id">{{ formattedId() }}</span>
+        <span class="pokemon-name">{{ pokemon().name | titlecase }}</span>
+      </div>
+      <div class="details-grid">
+        <div class="detail-item">
+          <span class="detail-label">Height</span>
+          <span class="detail-value">{{ (pokemon().height / 10).toFixed(1) }} m</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Weight</span>
+          <span class="detail-value">{{ (pokemon().weight / 10).toFixed(1) }} kg</span>
+        </div>
+        <div class="detail-item">
+          <span class="detail-label">Base Exp</span>
+          <span class="detail-value">{{ pokemon().base_experience || 'N/A' }}</span>
+        </div>
+      </div>
+      <div class="abilities">
+        <h4>Abilities</h4>
+        @for (ability of pokemon().abilities; track ability.slot) {
+          <span class="ability-badge" [class.hidden]="ability.is_hidden">
+            {{ ability.ability.name | titlecase }}
+            @if (ability.is_hidden) { <span class="hidden-tag">Hidden</span> }
+          </span>
+        }
+      </div>
+      <div class="stats">
+        <h4>Base Stats</h4>
+        @for (stat of pokemon().stats; track stat.stat.name) {
+          <div class="stat-bar">
+            <span class="stat-name">{{ formatStatName(stat.stat.name) }}</span>
+            <div class="bar-container">
+              <div class="bar-fill" [style.width.%]="Math.min(stat.base_stat, 100)"></div>
+            </div>
+            <span class="stat-value">{{ stat.base_stat }}</span>
+          </div>
+        }
+      </div>
+      <div class="flip-hint">Click to go back</div>
+    </div>
+  </div>
+</div>

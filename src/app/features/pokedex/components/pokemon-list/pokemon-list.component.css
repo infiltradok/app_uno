@@ -1,0 +1,151 @@
+.pokemon-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: 8px;
+}
+
+.pokemon-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 20px;
+  padding: 8px 0;
+}
+
+/* Loading State */
+.loading-state,
+.error-state,
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  padding: 40px 20px;
+  text-align: center;
+  color: #6c757d;
+}
+
+.loading-state svg,
+.error-state svg,
+.empty-state svg {
+  width: 48px;
+  height: 48px;
+  margin-bottom: 16px;
+  color: #dee2e6;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 3px solid #e9ecef;
+  border-top-color: #6890F0;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 16px;
+}
+
+.spinner-small {
+  width: 20px;
+  height: 20px;
+  border: 2px solid #e9ecef;
+  border-top-color: #6890F0;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.error-state p,
+.empty-state p {
+  margin: 0 0 8px;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #495057;
+}
+
+.empty-state span {
+  font-size: 0.85rem;
+  color: #adb5bd;
+}
+
+.retry-btn {
+  margin-top: 16px;
+  padding: 10px 24px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: white;
+  background: #6890F0;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+}
+
+.retry-btn:hover {
+  background: #5a7fd8;
+}
+
+/* Load More */
+.load-more-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 20px;
+  color: #6c757d;
+  font-size: 0.9rem;
+}
+
+.load-more-btn {
+  display: block;
+  width: 100%;
+  max-width: 300px;
+  margin: 20px auto 0;
+  padding: 14px 24px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #6890F0;
+  background: #f0f4ff;
+  border: 2px solid #6890F0;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.load-more-btn:hover {
+  background: #6890F0;
+  color: white;
+}
+
+.end-message {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 20px;
+  color: #adb5bd;
+  font-size: 0.9rem;
+}
+
+.end-message svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .pokemon-grid {
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .pokemon-grid {
+    grid-template-columns: 1fr;
+    max-width: 280px;
+    margin: 0 auto;
+  }
+}

@@ -1,0 +1,38 @@
+<div class="character-list">
+  @if (loading() && characters().length === 0) {
+    <div class="loading-state">
+      <div class="spinner"></div>
+      <p>Loading Dragon Ball characters...</p>
+    </div>
+  } @else if (error()) {
+    <div class="error-state">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <circle cx="12" cy="12" r="10"></circle>
+        <line x1="12" y1="8" x2="12" y2="12"></line>
+        <line x1="12" y1="16" x2="12.01" y2="16"></line>
+      </svg>
+      <p>{{ error() }}</p>
+    </div>
+  } @else if (characters().length === 0) {
+    <div class="empty-state">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+        <circle cx="11" cy="11" r="8"></circle>
+        <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+        <line x1="8" y1="8" x2="14" y2="14"></line>
+        <line x1="14" y1="8" x2="8" y2="14"></line>
+      </svg>
+      <p>No characters found</p>
+      <span>Try adjusting your search or filters</span>
+    </div>
+  } @else {
+    <div class="character-grid">
+      @for (character of characters(); track trackById($index, character)) {
+        <app-character-card [character]="character"></app-character-card>
+      }
+    </div>
+    
+    <div class="results-count">
+      {{ characters().length }} character{{ characters().length !== 1 ? 's' : '' }} found
+    </div>
+  }
+</div>

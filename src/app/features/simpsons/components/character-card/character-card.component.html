@@ -1,0 +1,38 @@
+<div class="character-card">
+  <div class="card-image">
+    <img [src]="imageUrl()" [alt]="character().name" loading="lazy" class="character-image">
+    <div class="card-overlay">
+      <span class="status-badge" [class]="statusClass()">{{ character().status }}</span>
+    </div>
+  </div>
+  <div class="card-content">
+    <div class="card-header">
+      <h3 class="character-name">{{ character().name }}</h3>
+      <span class="gender-badge" [class]="genderClass()">
+        {{ character().gender }}
+      </span>
+    </div>
+    <p class="occupation">{{ character().occupation }}</p>
+    <div class="character-details">
+      @if (character().age !== null) {
+        <div class="detail">
+          <span class="detail-label">Age</span>
+          <span class="detail-value">{{ character().age }}</span>
+        </div>
+      }
+      <div class="detail">
+        <span class="detail-label">Phrases</span>
+        <span class="detail-value">{{ character().phrases.length }}</span>
+      </div>
+    </div>
+    @if (character().phrases.length > 0) {
+      <div class="phrase">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="quote-icon">
+          <path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V21c0 1.25.75 2 2 2h1c0 0 0 0 0 0z"></path>
+          <path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V21c0 1.25.75 2 2 2h1c0 0 0 0 0 0z"></path>
+        </svg>
+        <span>"{{ character().phrases[0] }}"</span>
+      </div>
+    }
+  </div>
+</div>

@@ -1,0 +1,32 @@
+<div class="character-card">
+  <div class="card-image">
+    <img [src]="character().image" [alt]="character().name" loading="lazy" class="character-image">
+    <div class="card-overlay">
+      <span class="race-badge" [class]="raceClass()">{{ character().race }}</span>
+    </div>
+  </div>
+  <div class="card-content">
+    <div class="card-header">
+      <h3 class="character-name">{{ character().name }}</h3>
+      <span class="gender-badge" [class]="'gender-' + character().gender.toLowerCase()">
+        {{ character().gender }}
+      </span>
+    </div>
+    <div class="character-stats">
+      <div class="stat">
+        <span class="stat-label">Ki</span>
+        <span class="stat-value">{{ formatKi(character().ki) }}</span>
+      </div>
+      <div class="stat">
+        <span class="stat-label">Max Ki</span>
+        <span class="stat-value">{{ formatKi(character().maxKi) }}</span>
+      </div>
+    </div>
+    <div class="affiliation" [class]="affiliationClass()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="affiliation-icon">
+        <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+      </svg>
+      <span>{{ character().affiliation }}</span>
+    </div>
+  </div>
+</div>
