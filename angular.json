@@ -61,7 +61,8 @@
             },
             "github-pages": {
               "baseHref": "/app_uno/",
-              "outputPath": "dist/app_uno/browser"
+              "outputPath": "dist/app_uno/browser",
+              "outputMode": "static"
             }
           },
           "defaultConfiguration": "production"
